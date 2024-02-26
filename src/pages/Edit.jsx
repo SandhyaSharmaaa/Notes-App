@@ -6,7 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 
 const Edit = () => {
-  const { updateNotes, notes } = useNoteContext();
+  const { setNotes, notes } = useNoteContext();
   const params = useParams();
   const navigateTo = useNavigate();
   const currId = params.noteId;
@@ -34,7 +34,7 @@ const Edit = () => {
       const updatedNotes = notes.map((note) =>
         note.id === currId ? { ...note, title, content } : note
       );
-      updateNotes(updatedNotes);
+    setNotes(updatedNotes);
       localStorage.setItem("notes", JSON.stringify(updatedNotes));
       navigateTo("/");
     } catch (error) {

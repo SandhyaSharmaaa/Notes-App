@@ -5,44 +5,39 @@ const NoteContext = createContext();
 export const useNoteContext = () => useContext(NoteContext);
 
 export const NoteProvider = ({ children }) => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(() => {
+    if (typeof window === "undefined") {
+      return [];
+    }
+    try {
+      const notesData = localStorage.getItem("notes");
+      if (notesData) {
+        return JSON.parse(notesData);
+      }
+      return [];
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  });
   const [currTitle, setCurrTitle] = useState("");
   const [currContent, setCurrContent] = useState("");
 
   useEffect(() => {
-    const storedNotes = localStorage.getItem("notes");
-    if (storedNotes) {
-      setNotes(JSON.parse(storedNotes));
-    }
-  }, []);
-
-  const updateNotes = (updatedNotes) => {
-    try {
-      setNotes(updatedNotes);
-      localStorage.setItem("notes", JSON.stringify(updatedNotes));
-    } catch (error) {
-      console.error("Error while updating notes:", error);
-    }
-  };
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const addNote = (note) => {
-    try {
-      const updatedNotes = [...notes, note];
-      updateNotes(updatedNotes);
-      localStorage.setItem("notes", JSON.stringify(updatedNotes));
-    } catch (error) {
-      console.error("Error while adding note:", error);
-    }
+    const updatedNotes = [...notes, note];
+    setNotes(updatedNotes);
+    // localStorage.setItem("notes", JSON.stringify(updatedNotes));
+
+    // console.error("Error while adding note:", error);
   };
 
   const deleteNote = (noteId) => {
-    try {
-      const updatedNotes = notes.filter((note) => note.id !== noteId);
-      updateNotes(updatedNotes);
-      localStorage.setItem("notes", JSON.stringify(updatedNotes));
-    } catch (error) {
-      console.error("Error while deleting note:", error);
-    }
+    const updatedNotes = notes.filter((note) => note.id !== noteId);
+    setNotes(updatedNotes);
   };
 
   function editNote(noteId) {
@@ -75,7 +70,7 @@ export const NoteProvider = ({ children }) => {
         currTitle,
         deleteNote,
         handleAction,
-        updateNotes,
+        setNotes,
       }}
     >
       {children}

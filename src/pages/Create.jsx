@@ -4,7 +4,7 @@ import { useNoteContext } from "@/context/NotesContext";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const CreateNote = () => {
+const Create = () => {
   const { addNote } = useNoteContext();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -25,6 +25,7 @@ const CreateNote = () => {
       date: formattedDate,
     });
   };
+  // const { id, date } = addNote;
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -98,4 +99,4 @@ const CreateNote = () => {
   );
 };
 
-export default CreateNote;
+export default Create;

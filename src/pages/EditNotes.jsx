@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { useNoteContext } from "@/context/NotesContext";
 
 const EditNote = () => {
-  const { notes, updateNotes } = useNoteContext();
+  const { notes, setNotes } = useNoteContext();
   const { id } = useParams();
   const history = useHistory();
   const [title, setTitle] = useState("");
@@ -29,7 +29,7 @@ const EditNote = () => {
     const updatedNotes = notes.map((note) =>
       note.id === id ? { ...note, title, content } : note
     );
-    updateNotes(updatedNotes);
+    setNotes(updatedNotes);
     history.push("/");
   };
 
