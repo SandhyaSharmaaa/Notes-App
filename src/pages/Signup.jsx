@@ -90,12 +90,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen relative pb-40">
-      <h2 className="text-2xl font-bold mb-8 absolute top-5 left-1/2 transform -translate-x-1/2">
-        Signup
-      </h2>
-
-      <div className="bg-gray-200 mt-52 w-[40%] h-[100%] flex flex-col items-center p-8">
+    <div className="flex justify-center items-start h-screen bg-gray-100">
+      <div className="flex flex-col items-center bg-gray-200 p-8 rounded-md mt-8 max-w-md w-full">
+        <h2 className="text-2xl font-bold mb-4">Signup</h2>
         <form className="w-full">
           <div className="mb-4">
             <label className="block text-sm font-semibold text-gray-600">
@@ -178,12 +175,18 @@ const Signup = () => {
           </div>
           <button
             type="button"
-            className="bg-blue-500 text-white px-4 py-2 mb-11 rounded hover:bg-blue-600"
+            className="bg-green-500 text-white px-4 py-2 mb-11 rounded hover:bg-green-600 w-full"
             onClick={handleSignup}
           >
             Sign Up
           </button>
         </form>
+        <p className="text-sm mt-4">
+          Already have an account?{" "}
+          <a href="/login" className="text-green-500 hover:underline">
+            Login
+          </a>
+        </p>
       </div>
     </div>
   );

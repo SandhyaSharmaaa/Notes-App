@@ -6,7 +6,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
-  const [LoginData, setLoginData] = useState({
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
@@ -16,10 +16,10 @@ const Login = () => {
 
     if (
       storedSignupData &&
-      LoginData.email === storedSignupData.email &&
-      LoginData.password === storedSignupData.password
+      loginData.email === storedSignupData.email &&
+      loginData.password === storedSignupData.password
     ) {
-      localStorage.setItem("loginData", JSON.stringify(LoginData));
+      localStorage.setItem("loginData", JSON.stringify(loginData));
       signIn();
       navigate("/");
       console.log("Login Done");
@@ -36,12 +36,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen relative pb-56">
-      <h2 className="text-2xl font-bold mb-4 absolute top-10 left-1/2 transform -translate-x-1/2">
-        Login
-      </h2>
-
-      <div className="bg-gray-200 p-8 w-[40%] h-[60%] flex flex-col items-center">
+    <div className="flex justify-center items-start h-screen bg-gray-100">
+      <div className="flex flex-col items-center bg-gray-200 p-8 max-w-lg w-full rounded-md mt-8">
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form className="w-full">
           <div className="mb-4">
             <label className="block text-sm font-semibold text-gray-600">
@@ -69,12 +66,18 @@ const Login = () => {
           </div>
           <button
             type="button"
-            className="bg-blue-500 text-white px-4 py-2 mb-11 rounded hover:bg-blue-600"
+            className="bg-green-500 text-white px-4 py-2 mb-4 rounded hover:bg-green-600 w-full"
             onClick={handleSignIn}
           >
             Sign In
           </button>
         </form>
+        <p className="text-sm">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-green-500 hover:underline">
+            Sign up
+          </a>
+        </p>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const Home = () => {
   const [dropdownIndex, setDropdownIndex] = useState(null);
   const [sortOption, setSortOption] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
 
   const themes = {
@@ -33,7 +33,7 @@ const Home = () => {
       cardDate: "text-green-500",
       dropdownText: "text-black",
     },
-    MysticDusk: {
+    mysticDusk: {
       background: "bg-blue-200",
       text: "text-blue-800",
       buttonBg: "bg-blue-500",
@@ -43,7 +43,7 @@ const Home = () => {
       cardDate: "text-blue-500",
       dropdownText: "text-black",
     },
-    RoseHorizon: {
+    roseHorizon: {
       background: "bg-pink-200",
       text: "text-pink-800",
       buttonBg: "bg-red-500",
@@ -79,8 +79,7 @@ const Home = () => {
     }
     return 0;
   });
-  console.log("Notes:", notes);
-  console.log("Type of notes:", typeof notes);
+
   return (
     <div
       className={`min-h-screen ${themes[theme].background} ${themes[theme].text}`}
@@ -99,22 +98,24 @@ const Home = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="flex-1 p-2 border border-black rounded-md mb-2 sm:mb-0 sm:mr-2"
           />
-          <select
-            className="p-2 border border-black rounded-md mb-2 sm:mb-0 sm:mr-2"
-            value={sortOption || ""}
-            onChange={(e) => handleSortChange(e.target.value)}
-          >
-            <option value="">Sort</option>
-            <option value="name">Name</option>
-            <option value="date">Date</option>
-          </select>
-          <Link to="/create">
-            <button
-              className={`px-4 py-2 ${themes[theme].buttonBg} ${themes[theme].buttonText} rounded-md`}
+          <div className="flex items-center mb-2 sm:mb-0">
+            <select
+              className="p-2 border border-black rounded-md mr-2"
+              value={sortOption || ""}
+              onChange={(e) => handleSortChange(e.target.value)}
             >
-              Create
-            </button>
-          </Link>
+              <option value="">Sort</option>
+              <option value="name">Name</option>
+              <option value="date">Date</option>
+            </select>
+            <Link to="/create">
+              <button
+                className={`px-4 py-2 ${themes[theme].buttonBg} ${themes[theme].buttonText} rounded-md`}
+              >
+                Create
+              </button>
+            </Link>
+          </div>
           <div className="relative ml-4">
             <button
               onClick={() => setThemeDropdownOpen((prev) => !prev)}
