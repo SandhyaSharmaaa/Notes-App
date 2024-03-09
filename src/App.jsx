@@ -10,6 +10,8 @@ import PageNotFound from "@/pages/PageNotFound";
 import ProtectedRoutes from "@/routes/ProtectedRoutes";
 import PublicRoutes from "@/routes/PublicRoutes";
 import { AuthProvider } from "@/context/Auth";
+import 'react-quill/dist/quill.snow.css'
+import 'react-quill/dist/quill.core.css'
 
 import "./index.css";
 import "tailwindcss/tailwind.css";

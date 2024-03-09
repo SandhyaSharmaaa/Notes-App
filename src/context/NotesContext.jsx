@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+// import ReactHtmlParser from 'react-html-parser';
+
 
 const NoteContext = createContext();
 
@@ -42,8 +44,8 @@ export const NoteProvider = ({ children }) => {
 
   function editNote(noteId) {
     const currNote = notes.find((note) => note.id === noteId);
-    setCurrTitle(currNote.title + noteId);
-    setCurrContent(currNote.content.slice(3, -4));
+    setCurrTitle(currNote.title);
+    setCurrContent((currNote.content));
   }
 
   const handleAction = (action, noteId) => {

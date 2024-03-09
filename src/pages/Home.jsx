@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNoteContext } from "@/context/NotesContext";
-import ReactHtmlParser from "react-html-parser";
+// import ReactHtmlParser from "react-html-parser";
 
 const Home = () => {
   const { notes, handleAction } = useNoteContext();
@@ -79,6 +79,9 @@ const Home = () => {
     }
     return 0;
   });
+  {
+    console.log(notes);
+  }
 
   return (
     <div
@@ -147,9 +150,12 @@ const Home = () => {
                   className={`p-4 shadow-md rounded-md overflow-hidden hover: ${themes[theme].cardBg} ${themes[theme].cardText}`}
                 >
                   <h3 className="font-bold text-lg mb-2">{note.title}</h3>
-                  <div style={{ wordWrap: "break-word" }}>
+                  {/* <div className="break">
                     {ReactHtmlParser(note.content)}
-                  </div>
+                  </div> */}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: note?.content }}
+                   />
                   <p
                     className={`text-[12px] mt-3 font-bold ${themes[theme].cardDate}`}
                   >

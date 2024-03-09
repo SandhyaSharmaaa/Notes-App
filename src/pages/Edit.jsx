@@ -4,6 +4,7 @@ import { useNoteContext } from "@/context/NotesContext";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
+// import ReactHtmlParser from "react-html-parser";
 
 const Edit = () => {
   const { setNotes, notes } = useNoteContext();
@@ -34,14 +35,14 @@ const Edit = () => {
       const updatedNotes = notes.map((note) =>
         note.id === currId ? { ...note, title, content } : note
       );
-    setNotes(updatedNotes);
+      setNotes(updatedNotes);
       localStorage.setItem("notes", JSON.stringify(updatedNotes));
       navigateTo("/");
     } catch (error) {
       console.error("Error while saving note:", error);
     }
   };
-
+console.log(content)
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-8 flex-grow">
