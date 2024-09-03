@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,16 +15,11 @@ const Signup = () => {
 
   const [errors, setErrors] = useState({
     name: "",
-    mobile: "",
+
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  const validateMobile = (mobile) => {
-    const mobileRegex = /^[0-9]{10}$/;
-    return mobileRegex.test(mobile);
-  };
 
   const validatePassword = (password) => {
     const passwordRegex =
@@ -40,13 +36,6 @@ const Signup = () => {
       isValid = false;
     } else {
       newErrors.name = "";
-    }
-
-    if (!validateMobile(signupData.mobile.trim())) {
-      newErrors.mobile = "Enter a valid 10-digit mobile number";
-      isValid = false;
-    } else {
-      newErrors.mobile = "";
     }
 
     if (!signupData.email.trim()) {
@@ -109,21 +98,7 @@ const Signup = () => {
             />
             {errors.name && <p className="text-red-500">{errors.name}</p>}
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">
-              Mobile Number
-            </label>
-            <input
-              type="text"
-              name="mobile"
-              className={`w-full border p-2 rounded ${
-                errors.mobile ? "border-red-500" : ""
-              }`}
-              placeholder="Enter your mobile number"
-              onChange={handleChange}
-            />
-            {errors.mobile && <p className="text-red-500">{errors.mobile}</p>}
-          </div>
+
           <div className="mb-4">
             <label className="block text-sm font-semibold text-gray-600">
               Email
@@ -173,13 +148,13 @@ const Signup = () => {
               <p className="text-red-500">{errors.confirmPassword}</p>
             )}
           </div>
-          <button
-            type="button"
-            className="bg-green-500 text-white px-4 py-2 mb-11 rounded hover:bg-green-600 w-full"
+          <Button
+            variant="contained"
+            className="px-4 py-2 mb-11 rounded w-full"
             onClick={handleSignup}
           >
             Sign Up
-          </button>
+          </Button>
         </form>
         <p className="text-sm mt-4">
           Already have an account?{" "}
@@ -193,3 +168,4 @@ const Signup = () => {
 };
 
 export default Signup;
+// rgba(37, 67, 44, 1)
