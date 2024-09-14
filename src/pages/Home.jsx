@@ -98,8 +98,12 @@ const Home = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-8 space-y-4">
         {/* Notes App */}
-        <img src={noteshopper} className="w-32 md:w-60 mb-10" />
-
+        <div className="flex justify-between">
+          <img src={noteshopper} className="w-32 md:w-60 mb-10" />
+          <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
+            S
+          </div>
+        </div>
         {/* <hr className="mb-4" /> */}
         <div className="flex flex-col gap-4 sm:flex-row items-center">
           <input
