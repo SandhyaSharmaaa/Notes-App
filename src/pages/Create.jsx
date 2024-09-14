@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNoteContext } from "@/context/NotesContext";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Button } from "@mui/material";
 
 const Create = () => {
   const { addNote } = useNoteContext();
@@ -29,14 +30,13 @@ const Create = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.toLocaleString("default", { month: "short" });
+    const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
 
-    return `${day} ${month}. ${year}`;
+    return `${day} ${month} ${year}`;
   };
 
-  const formattedDate =
-    "Created on:" + " " + formatDate(new Date().toISOString().split("T")[0]);
+  const formattedDate = formatDate(new Date().toISOString().split("T")[0]);
 
   function uniqueId() {
     let text = Math.random().toString(36);
@@ -81,17 +81,14 @@ const Create = () => {
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <Link to="/" className="mb-2 sm:mb-0">
-            <button className="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded-md">
+            <Button variant="contained" className="w-full !bg-danger">
               Cancel
-            </button>
+            </Button>
           </Link>
           <Link to="/">
-            <button
-              onClick={handleSave}
-              className="w-full sm:w-auto mt-2 sm:mt-0 px-4 py-2 bg-green-500 text-white rounded-md"
-            >
+            <Button variant="contained" onClick={handleSave} className="w-full">
               Save
-            </button>
+            </Button>
           </Link>
         </div>
       </div>

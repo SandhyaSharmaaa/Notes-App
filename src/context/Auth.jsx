@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     setLoggedIn(true);
   }, []);
 
-  const signOut = useCallback(() => {
+  const logOut = useCallback(() => {
     localStorage.setItem("isLoggedIn", "false");
     localStorage.removeItem("LoginData");
     setLoggedIn(false);
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   const authContextValue = {
     isLoggedIn,
     signIn,
-    signOut,
+    logOut,
   };
 
   return (

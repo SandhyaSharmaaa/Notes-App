@@ -4,6 +4,7 @@ import { useNoteContext } from "@/context/NotesContext";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 // import ReactHtmlParser from "react-html-parser";
 
 const Edit = () => {
@@ -42,7 +43,7 @@ const Edit = () => {
       console.error("Error while saving note:", error);
     }
   };
-console.log(content)
+  console.log(content);
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-8 flex-grow">
@@ -80,16 +81,13 @@ console.log(content)
         </div>
         <div className="w-full flex justify-between">
           <Link to="/">
-            <button className="px-4 py-2 bg-red-500 text-white rounded-md mr-2">
+            <Button variant="contained" className=" !bg-danger">
               Cancel
-            </button>
+            </Button>
           </Link>
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 bg-green-500 text-white rounded-md"
-          >
+          <Button variant="contained" onClick={handleSave}>
             Save
-          </button>
+          </Button>
         </div>
       </div>
     </div>

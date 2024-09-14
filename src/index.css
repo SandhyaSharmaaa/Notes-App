@@ -1,5 +1,19 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+button {
+  background-color: rgba(37, 67, 44, 1);
+  color: white;
+  border: none; /* Optional: remove the default border */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 5px; /* Optional: rounded corners */
+  font-size: 16px; /* Adjust font size as needed */
+  cursor: pointer;
+  /* transition: background-color 0.3s ease;  */
+  /* Smooth transition for hover effect */
+}
+
+button:hover {
+  background-color: rgba(37, 67, 44, 0.8);
+}

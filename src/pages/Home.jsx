@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNoteContext } from "@/context/NotesContext";
 // import ReactHtmlParser from "react-html-parser";
-
+import noteshopper from "@/assets/images/NotesHopper.svg";
+import { MdDelete, MdMenuBook } from "react-icons/md";
+import { Button } from "@mui/material";
+import { FaEdit, FaFolderOpen, FaRegHeart } from "react-icons/fa";
 const Home = () => {
   const { notes, handleAction } = useNoteContext();
 
@@ -82,28 +85,36 @@ const Home = () => {
   {
     console.log(notes);
   }
-
+  const truncateContent = (text, wordLimit) => {
+    const words = text.split(" ");
+    if (words.length <= wordLimit) {
+      return text;
+    }
+    return words.slice(0, wordLimit).join(" ") + "...";
+  };
   return (
     <div
       className={`min-h-screen ${themes[theme].background} ${themes[theme].text}`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-8">
-        <div
-          className={`text-5xl font-bold font-mono text-center mb-4 ${themes[theme].text}`}
-        >
-          Notes App
+      <div className="container mx-auto px-4 sm:px-6 lg:px-24 py-8 space-y-4">
+        {/* Notes App */}
+        <div className="flex justify-between">
+          <img src={noteshopper} className="w-32 md:w-60 mb-10" />
+          <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
+            S
+          </div>
         </div>
-        <hr className="mb-4" />
-        <div className="flex flex-col sm:flex-row items-center mb-4">
+        {/* <hr className="mb-4" /> */}
+        <div className="flex flex-col gap-4 sm:flex-row items-center">
           <input
             type="text"
             placeholder="Search..."
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 p-2 border border-black rounded-md mb-2 sm:mb-0 sm:mr-2"
+            className="flex-1 p-2 border border-black rounded-md "
           />
-          <div className="flex items-center mb-2 sm:mb-0">
+          <div className="flex items-center gap-4 ">
             <select
-              className="p-2 border border-black rounded-md mr-2"
+              className="px-4 py-2 text-center border border-primary text-primary rounded-md "
               value={sortOption || ""}
               onChange={(e) => handleSortChange(e.target.value)}
             >
@@ -112,20 +123,22 @@ const Home = () => {
               <option value="date">Date</option>
             </select>
             <Link to="/create">
-              <button
-                className={`px-4 py-2 ${themes[theme].buttonBg} ${themes[theme].buttonText} rounded-md`}
+              <Button
+                variant="contained"
+                className={`px-6 py-4 ${themes[theme].buttonBg} ${themes[theme].buttonText} rounded-md`}
               >
                 Create
-              </button>
+              </Button>
             </Link>
           </div>
-          <div className="relative ml-4">
-            <button
+          <div className="relative">
+            <Button
+              variant="contained"
               onClick={() => setThemeDropdownOpen((prev) => !prev)}
-              className={`px-4 py-2 ${themes[theme].buttonBg} ${themes[theme].buttonText} rounded-md`}
+              className={`px-6 py-4 ${themes[theme].buttonBg} ${themes[theme].buttonText} rounded-md`}
             >
               {themeDropdownOpen ? "Close Themes" : "Choose Theme"}
-            </button>
+            </Button>
             {themeDropdownOpen && (
               <div className="absolute mt-1 w-32 bg-white border border-gray-200 rounded-md shadow-md z-10">
                 {Object.keys(themes).map((key) => (
@@ -149,43 +162,52 @@ const Home = () => {
                 <div
                   className={`p-4 shadow-md rounded-md overflow-hidden hover: ${themes[theme].cardBg} ${themes[theme].cardText}`}
                 >
-                  <h3 className="font-bold text-lg mb-2">{note.title}</h3>
+                  <h3 className="font-bold text-lg text-primary mb-2">
+                    {note.title}
+                  </h3>
                   {/* <div className="break">
                     {ReactHtmlParser(note.content)}
                   </div> */}
                   <div
-                    dangerouslySetInnerHTML={{ __html: note?.content }}
-                   />
-                  <p
-                    className={`text-[12px] mt-3 font-bold ${themes[theme].cardDate}`}
-                  >
-                    {note.date}
-                  </p>
+                    dangerouslySetInnerHTML={{
+                      __html: truncateContent(note?.content, 15),
+                    }}
+                  />
+                  <div className="flex items-center justify-between">
+                    <p
+                      className={`text-[12px] text-primary-light mt-3 font-bold ${themes[theme].cardDate}`}
+                    >
+                      {note.date}
+                    </p>
+                    <FaRegHeart />
+                  </div>
                 </div>
               </Link>
 
               <div className="absolute top-0 right-0 mt-2 mr-2">
-                <button
+                <Button
                   onClick={() => handleDropdownChange(index)}
-                  className="text-xl"
+                  variant="text"
                 >
-                  ^
-                </button>
+                  <MdMenuBook size={20} />
+                </Button>
                 {dropdownIndex === index && (
                   <div className="absolute top-full right-0 mt-1 w-32 bg-white border border-gray-200 rounded-md shadow-md z-10">
                     <Link to={`/open/${note.id}`}>
                       <button
                         onClick={() => handleAction("open", note.id)}
-                        className="block w-full py-1 text-left px-4 hover:bg-gray-100 text-black"
+                        className=" flex items-center gap-4 w-full py-1 text-left px-4 hover:bg-gray-100 text-primary"
                       >
+                        <FaFolderOpen className="text-primary" size={14} />
                         Open
                       </button>
                     </Link>
                     <Link to={`/edit/${note.id}`}>
                       <button
                         onClick={() => handleAction("edit", note.id)}
-                        className="block w-full py-1 text-left px-4 hover:bg-gray-100 text-black"
+                        className="flex items-center gap-4 w-full py-1 text-left px-4 hover:bg-gray-100 text-primary"
                       >
+                        <FaEdit className="text-primary" size={14} />
                         Edit
                       </button>
                     </Link>
@@ -194,8 +216,9 @@ const Home = () => {
                         handleAction("delete", note.id);
                         setDropdownIndex(null);
                       }}
-                      className="block w-full py-1 text-left px-4 hover:bg-gray-100 text-red-600"
+                      className="flex items-center gap-4 w-full py-1 text-left px-4 hover:bg-gray-100 text-red-600"
                     >
+                      <MdDelete className="text-danger" size={16} />
                       Delete
                     </button>
                   </div>
